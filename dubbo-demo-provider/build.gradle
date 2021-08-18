@@ -1,0 +1,59 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.5.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.beyondli'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+ext {
+	lombokVersion = '1.16.18'
+	swaggerVersion='2.9.2'
+	EncodeVersion='4.11'
+	fastJsonVersion = '1.2.75'
+}
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//swagger
+	compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
+	// knife4j
+	compile group: 'com.github.xiaoymin', name: 'knife4j-spring-boot-starter', version: '2.0.4'
+	//lombok
+	compile("org.projectlombok:lombok:$lombokVersion")
+	compileOnly("org.projectlombok:lombok:$lombokVersion")
+	annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+
+	//日志所需jar
+	compile("net.logstash.logback:logstash-logback-encoder:$EncodeVersion")
+	compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: '1.7.25'
+	//fastjson
+	compile("com.alibaba:fastjson:$fastJsonVersion")
+
+	// https://mvnrepository.com/artifact/org.apache.dubbo/dubbo
+	implementation group: 'org.apache.dubbo', name: 'dubbo', version: '2.7.3'
+	implementation group: 'org.apache.dubbo', name: 'dubbo-dependencies-bom', version: '2.7.3'
+	implementation group: 'org.apache.dubbo', name: 'dubbo-spring-boot-starter', version: '2.7.3'
+	implementation group: 'org.apache.dubbo', name: 'dubbo-registry-nacos', version: '2.7.3'
+// https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-dubbo
+	//implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-dubbo', version: '2.1.2.RELEASE'
+	// https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery
+	implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: '2.1.2.RELEASE'
+	// https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config
+	implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: '2.1.2.RELEASE'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.1.5.RELEASE'
+	compile project(":dubbo-demo-api")
+}

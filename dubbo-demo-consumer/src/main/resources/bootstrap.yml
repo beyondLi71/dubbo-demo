@@ -1,0 +1,25 @@
+#=================================基础配置========================================================
+server:
+  port: 5731
+spring:
+  application:
+    name: maxrocky-cloud-dubbo-consumer
+  #可使用此参数进行环境区分(文件名称规则为spring.application.name-profiles.active.file-extension)
+  #profiles:
+  #  active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 123.57.42.2:8847
+      config:
+        server-addr: 123.57.42.2:8847
+        file-extension: yaml
+        #默认值为DEFAULT_GROUP 可使用此参数进行环境区分(文件名称规则为spring.application.name-profiles.active.file-extension)
+        group: MAXROCKR_CLOUD_DEV
+dubbo:
+  registry:
+    address: nacos://123.57.42.2:8847
+  #无需生产者是否存在限制
+  consumer:
+    check: false
+#=================================其他基础配置========================================================
